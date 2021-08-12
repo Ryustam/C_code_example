@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define m 7
+
+int main() {
+
+
+	//초기화 및 출력
+	int arr[m][m];
+
+	for (int i = (0); i < m; i++) {
+		for (int j = 0; j < m; j++)
+			arr[i][j] = 0;
+	}
+
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < m; j++)
+			printf("%d", arr[i][j]);
+		printf("\n");
+	}
+
+	printf("========================\n");
+
+
+	int direction = 0;
+	int X = (m / 2);
+	int Y = (m / 2);
+
+	arr[X][Y] = 1;
+
+	printf("%d\n", arr[X][Y]);
+	
+	int K = 0;
+	int refer = 0;
+	int escape = 1;
+	srand(time(NULL));
+
+	do{
+		refer = (rand() % 4) + 1;
+		K++;
+		printf("%d:%d\n",K,refer);
+		switch (refer) {
+			case 1:
+			//위
+				Y = Y + 1;
+				arr[X][Y] = 1;
+				direction = 1;
+
+				break;
+
+			case 2:
+			//아래
+				Y = Y - 1;
+				arr[X][Y] = 1;
+				direction = 2;
+
+				break;
+			case 3:
+				//왼쪽
+				X = X - 1;
+				arr[X][Y] = 1;
+				direction = 3;
+
+				break;
+			case 4:
+				//오른쪽
+				X = X + 1;
+				arr[X][Y] = 1;
+				direction = 4;
+
+				break;
+		}
+		
+		if (X == 0 || X == m - 1)
+			escape = 0;
+		if (Y == 0 || Y == m - 1)
+			escape = 0;
+
+	} while (escape);
+
+
+	printf("%d\n", !escape);
+
+	for (int i = (0); i < m; i++) {
+			for (int j = 0; j < m; j++)
+				printf("%d",arr[i][j]);
+			printf("\n");
+	}
+	
+	return 0;
+
+}
