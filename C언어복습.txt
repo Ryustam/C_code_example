@@ -1,0 +1,35 @@
+
+C언어 복습
+
+[선후연산]
+선연산 ++num
+후연산 num++
+
+[비트 연산자]
+& AND
+| OR
+^ XOR (서로 달라야 1)
+~ 반전(보수)
+<< 2 (x4)
+>> 2 (/4)
+
+[sizeof]
+int double float 크기 
+
+[scanf]
+scanf("% " , & );
+
+[double]
+출력 %l    
+입력 %lf (scanf)
+
+[자동 형 변환]
+
+ex)
+int num1 = 3, num2 = 4;
+
+	double divResult;
+	divResult = (double) num1 / num2;
+	printf("나눗셈 결과: %f \n", divResult);
+	return 0;
+
