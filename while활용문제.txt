@@ -1,0 +1,85 @@
+//프로그램 사용자로부터 양의 정수를 하나 입력받아서,
+	//그 수 만큼 "Hello Wolrd"를 출력하는 프로그램을 작성해보자.
+
+	printf("문제1\n");
+
+	int num1;
+	int i = 0;
+	printf("정수입력:");
+	scanf_s("%d", &num1);
+
+	while (i < num1) {
+		printf("Hello World\n");
+		i++;
+	}
+	
+	/*양의 정수를 하나 입력 받은 다음, 그 수만큼 3의배수를 출력하는
+	프로그램을 작성해보자.
+	*/
+
+	printf("문제2");
+
+	int num2;
+	int i = 0;
+
+	printf("정수 입력:");
+	scanf_s("%d", &num2);
+
+	while (i < num2) {
+		printf("%d", (i + 1) * 3);
+		i++;
+	}
+	
+	//문제3.계속 정수입력 받음,그 값을 더해 나간다.(0 입력시 종료+ 합 출력)
+
+	int num3,sum=0;
+
+	printf("정수입력:");
+	scanf_s("%d", &num3);
+	sum = sum + num3;
+
+	while (num3 != 0) {
+
+		printf("정수입력:");
+		scanf_s("%d", &num3);
+		sum = sum + num3;
+	}
+
+	printf("입력된 수의합 %d", sum);
+	
+	
+	//문제4. 입력 받은 숫자에 해당하는 구구단 역순으로 출력
+
+	int dan,num4=9;
+
+	printf("몇단?: ");
+	scanf_s("%d",&dan);
+
+	while (num4 >= 1) {
+		printf("%d * %d = %d\n", dan, num4, dan * num4);
+		num4--;
+	}
+	
+	/*문제5.입력 받은 정수의 평균을 출력
+먼저 몇개 입력할것인지 묻는다. 그만큼 입력받음.
+평균 값은 소수점 이하까지 계산해서 출력한다.
+*/
+
+	int num5=0,sum=0,obj=0,temp=0;
+	
+	printf("몇 개 입력하시겠습니까?:");
+	scanf_s("%d", &num5);
+
+	temp = num5;
+
+	while (num5 >= 1) {
+		obj = 0;
+		printf("정수입력");
+		scanf_s("%d",&obj);
+		sum = sum + obj;
+		num5--;
+	}
+	double avg = (double)sum / temp;
+
+	printf("%f\n",(double)sum/temp);
+	printf("%f", avg);
