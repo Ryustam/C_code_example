@@ -33,3 +33,30 @@ int num1 = 3, num2 = 4;
 	printf("나눗셈 결과: %f \n", divResult);
 	return 0;
 
+#include <stdio.h>
+#include <string.h>
+
+
+int main() {
+	
+	int myID = 500, myPW = 1234;
+
+	int ID, PW;
+
+
+	do {
+		printf("ID입력:");
+		scanf_s("%d", &ID);
+		printf("PW입력:");
+		scanf_s("%d", &PW);
+
+	} while ((myID!=ID) || (myPW!=PW));
+	// (myID - ID)  || (myPW - PW)
+	// (myID !=ID)  || (myPW !=PW)
+	// !((myID==ID) && (myPW==PW))
+
+
+	printf("접속성공");
+			
+	return 0;
+}
