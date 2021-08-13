@@ -83,3 +83,32 @@
 
 	printf("%f\n",(double)sum/temp);
 	printf("%f", avg);
+	
+	
+	구구단
+
+/*
+	int dan = 0, num1 = 1;
+	printf("단:");
+	scanf_s("%d", &dan);
+	printf("횟수:");
+	scanf_s("%d", &num1);
+
+	for (int i = 0; i < 9; i++) {
+		printf("%d*%d=%d\n", dan, num1, dan * num1);
+	}
+	*/
+
+	/*
+	int store = dan;
+	while (num1 < 10) {
+		while(store<10) {
+			printf("%-2d * %-2d = %-2d  ", store, num1, store * num1);
+			store++;
+		}
+		store = dan;
+		printf("\n");
+		num1++;
+		
+	}
+	*/
