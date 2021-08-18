@@ -1,0 +1,274 @@
+#pragma warning (disable 4996)
+
+#include <stdio.h>
+
+
+int main() {
+	/*
+	int num;
+	printf("정수 입력: ");
+	scanf_s("%d", &num);
+
+	if (num < 0)
+		printf("입력 값은 0보다 작다");
+	if (num > 0)
+		printf("입력 값은 0보다 크다");
+	if (num == 0)
+		printf("입력 값은 0이다");
+
+
+
+	
+	int opt;
+	double num1, num2;
+	double result;
+
+	printf("1.덧셈 2.뺄셈 3.곱셈 4.나눗셈\n");
+	printf("선택?");
+	scanf_s("%d", &opt);
+	printf("두 개의 실수 입력: ");
+	scanf_s("%lf %lf", &num1, &num2);
+	//float = print : %f, scanf : %lf
+	//double = printf : %f, scanf : %lf
+	//long double = printf : %Lf, scanf: %Lf
+
+
+	if (opt == 1)
+		result = num1 + num2;
+	else if (opt == 2)
+		result = num1 - num2;
+	else if (opt == 3)
+		result = num1 * num2;
+	else
+		result = num1 / num2;
+
+	printf("결과: %f \n", result);
+
+
+
+	int num;
+
+	for (num = 1; num < 100; num++) {
+		if (num%3 == 0 || num%4==0)
+			printf("3 또는 4의 배수: %d \n", num);
+	}
+
+	int num;
+	
+	printf("양수 입력:");
+	scanf_s("%d", &num);
+	if (num % 3 == 0 || num % 4 == 0)
+		printf("3 또는 4의 배수: %d \n", num);
+	*/
+
+	int num;
+	printf("정수 입력: ");
+	scanf_s("%d", &num);
+	
+	if (num < 0)
+		printf("입력 값은 0보다 작다.\n");
+	else
+		printf("입력 값은 0보다 작지   않다.\n");
+
+
+
+
+	return 0;
+}
+
+계산기 예외 처리
+
+int opt;
+	double num1, num2;
+	double result=0;
+
+	printf("1.덧셈 2.뺄셈 3.곱셈 4.나눗셈\n");
+	printf("선택?");
+	scanf_s("%d", &opt);
+
+	if (opt>0 && opt<5) {
+		printf("두 개의 실수 입력: ");
+		scanf_s("%lf %lf", &num1, &num2);
+		//float = print : %f, scanf : %lf
+		//double = printf : %f, scanf : %lf
+		//long double = printf : %Lf, scanf: %Lf
+
+
+		if (opt == 1)
+			result = num1 + num2;
+		else if (opt == 2)
+			result = num1 - num2;
+		else if (opt == 3)
+			result = num1 * num2;
+		else if (opt == 4)
+			result = num1 / num2;
+
+
+		printf("결과: %f \n", result);
+	}
+
+	else
+		printf("잘못입력하셨습니다.");
+
+
+
+	return 0;
+	
+	
+	int main() {
+	
+	int opt;
+	double num1, num2;
+	double result=0;
+
+	printf("1.덧셈 2.뺄셈 3.곱셈 4.나눗셈\n");
+	printf("선택?");
+	scanf_s("%d", &opt);
+
+	if (opt>0 && opt<5) {
+		printf("두 개의 실수 입력: ");
+		scanf_s("%lf %lf", &num1, &num2);
+		//float = print : %f, scanf : %lf
+		//double = printf : %f, scanf : %lf
+		//long double = printf : %Lf, scanf: %Lf
+
+
+		if (opt == 1)
+			result = num1 + num2;
+		else if (opt == 2)
+			result = num1 - num2;
+		else if (opt == 3)
+			result = num1 * num2;
+		else if (opt == 4)
+			result = num1 / num2;
+
+
+		printf("결과: %f \n", result);
+	}
+
+	else
+		printf("잘못입력하셨습니다.");
+
+
+
+	return 0;
+}
+
+	/*
+	//2번
+	int num1, num2,minus;
+	
+
+	printf("두 개의 정수를 입력하시오.: ");
+	scanf_s("%d %d", &num1, &num2);
+
+	minus = (num1 > num2) ? num1-num2 : num2-num1 ;
+
+	printf("두 정수의 차: %d\n",minus);
+	*/
+	 
+	//3번
+	int korean, english, math;
+	double avg;
+
+	printf("국어, 영어, 수학 점수를 차례대로 입력하시오. \n");
+	scanf_s("%d %d %d", &korean, &english, &math);
+
+	avg = (korean + english + math)/3;
+
+	printf("평균:%f\n", avg);
+
+	if (avg < 50)
+		printf("학점:F");
+	else if (avg < 70)
+		printf("학점:D");
+	else if (avg < 80)
+		printf("학점:C");
+	else if (avg < 90)
+		printf("학점:B");
+	else if (avg <= 100)
+		printf("학점:A");
+	
+
+
+	return 0;
+}
+
+
+int num;
+	printf("start!");
+
+	for (num = 1; num < 20; num++) {
+		if (num % 2 == 0 || num % 3 == 0)
+			continue;
+		printf("%d  ", num);
+	}
+	printf("end! \n");
+
+	return 0;
+	
+	
+	
+	switch
+	
+	
+	
+	
+	int num;
+	printf("1이상 5이하의 정수 입력:");
+	scanf_s("%d", &num);
+
+	switch (num) {
+
+		case 1:
+			printf("1은 one \n");
+			break;
+		case 2:
+			printf("2은 two \n");
+			break;
+		case 3:
+			printf("3은 three \n");
+			break;
+		case 4:
+			printf("4은 four \n");
+			break;
+		case 5:
+			printf("5은 five \n");
+			break;
+		default:
+			printf("I don't know! \n");
+		
+	}
+	return 0;
+	
+	
+	분기문을 이용한 로그인
+	
+	int ID = 500, PW = 1000;
+	int inputID, inputPW;
+
+	while (1) {
+
+		printf("아이디를 입력하세요.\n");
+		scanf_s("%d", &inputID);
+		printf("비밀번호를 입력하세요.\n");
+		scanf_s("%d", &inputPW);
+
+		if (inputID == ID && inputPW == PW) {
+			printf("로그인 하셨습니다.\n\n");
+			break;
+		}
+		else if (inputID != ID && inputPW == PW) {
+			printf("아이디를 잘못입력하셨습니다.\n\n");
+			continue;
+		}
+		else if (inputID == ID && inputPW != PW) {
+			printf("비밀번호를 잘못입력하셨습니다.\n\n");
+			continue;
+		}
+		else
+			printf("아이디와 비밀번호를 확인해주세요\n\n");
+			continue;
+	}
+
+	
