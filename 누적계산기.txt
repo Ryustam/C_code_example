@@ -1,0 +1,124 @@
+#include <stdio.h>
+double sum(double num1, double num2);
+double minus(double num1, double num2);
+double multi(double num1, double num2);
+double divide(double num1, double num2);
+double calcul(int opt, double num1, double num2);
+void start();
+void end();
+
+
+int main() {
+	
+	start();
+	end();
+
+	return 0;
+}
+
+void start() {
+
+	double num1, num2, num3, result;
+
+	//offset 무한루프작동, recalcul 첫계산과 누적계산 분리;
+	int opt, offset = 1, recalcul = 0 ;
+
+
+	printf("===========누적계산기========\n");
+	printf("1.덧셈 2.뺄셈 3.곱셈 4.나눗셈\n");
+	printf("선택:");
+	scanf_s("%d", &opt);
+	printf("\n");
+
+	//처음시작할때 예외처리
+	if (opt > 0 && opt < 5) {
+
+		do {
+			switch (recalcul) {
+
+
+				//첫 화면
+			case(0):
+					printf("두 개의 실수 입력: ");
+					scanf_s("%lf %lf", &num1, &num2);
+					result = calcul(opt, num1, num2);
+					printf("결과: %f\n\n", result);
+					printf("\n");
+					recalcul = 1;
+					break;
+
+				//연산이 한번진행된 이후 화면 recalcul=1
+			case(1):
+					printf("           <<누적계산>>\n");
+					printf("1.덧셈 2.뺄셈 3.곱셈 4.나눗셈 5.종료\n");
+					printf("선택:");
+					scanf_s("%d", &opt);
+					printf("\n");
+
+					//잘못된 값
+					if ((opt < 0) || (opt > 5)) {
+						printf("값이 잘못입력되었습니다.\n\n");
+						printf("최종결과: %f\n", result);
+						return 0;
+					}
+
+					//계산을 끝내고 싶을때
+					if (opt == 5) {
+						printf("최종결과: %f\n\n", result);
+						offset = 0;
+						break;
+					}
+
+					printf("실수 입력:");
+					scanf_s("%lf", &num3);
+					result = calcul(opt, result, num3);
+					printf("결과: %f\n\n", result);
+					break;
+			}
+		} while (offset);
+	}
+	else {
+		printf("값을 잘못입력하셨습니다.\n");
+		return 0;
+	}
+
+}
+
+void end() {
+	printf("===========================\n");
+	printf("    계산이 끝났습니다.\n");
+	printf("===========================\n");
+}
+
+double calcul(int opt, double num1, double num2) {
+
+	double result;
+
+	if (opt == 1)
+		result = sum(num1, num2);
+	else if (opt == 2)
+		result = minus(num1, num2);
+	else if (opt == 3)
+		result = multi(num1, num2);
+	else if (opt == 4)
+		result = divide(num1, num2);
+
+	return result;
+}
+
+double sum(double num1, double num2) {
+	return  num1 + num2;
+}
+
+double minus(double num1, double num2) {
+	return  num1 - num2;
+}
+
+double multi(double num1, double num2) {
+	return  num1 * num2;
+}
+
+
+double divide(double num1, double num2) {
+	return  num1 / num2;
+}
