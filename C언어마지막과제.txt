@@ -1,0 +1,218 @@
+#pragma warning(disable:4996)
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <windows.h>
+
+int lotto_odd_even(int arr[], int n);
+int lotto_sum(int arr[], int n);
+
+
+// 홀짝분포와 합통계의 확률을 더해서 기댓값을 산정하고 기댓값 순서대로 1~5순위를 출력한다.
+// 단, 지난주 당첨번호는 결과에서 제외한다.
+
+
+int main() {
+
+    int  lotto[100][6] = { 0 };   // 나머지 5개에는 0으로 채움 --> 6개 모두 0으로 초기화 된다.
+    int i = 0, j = 0, n = 0;
+    int x=0, y=0;
+    srand((unsigned)time(NULL));  // 매번 다른 수를 생성하도록 랜덤함수 초기화
+
+    int last_lotto[6];
+
+    printf("========================\n");
+    printf("       로또 자판기      \n");
+    printf("========================\n");
+    getch();
+    system("cls");
+
+
+    printf("지난 주 로또 1등 번호 입력하세요(6개): ");
+    scanf("%d %d %d %d %d %d", &last_lotto[0], &last_lotto[1], &last_lotto[2], &last_lotto[3], &last_lotto[4], &last_lotto[5]);
+  
+
+    for (i = 0; i < 6; i++) {
+        printf("%d ", last_lotto[i]);
+    }
+    printf("예측중입니다!");
+    getch();
+    system("cls");
+
+
+    for (j = 0; j < 100; j++) {
+        while (1) {  // 중복수가 존재하기 때문에  for 문으로  6번 반복하면 안됨
+
+            //  rand() % 45 : 0부터 44까지 의 난수를 생성한다.
+            //  rand() % 45  + 1 : 1부터 45까지의 난수를 생성한다.
+
+            int r = rand() % 45 + 1;  // 1~45 사이의 랜덤 수 생성, 중복 가능
+             
+            if (r == last_lotto[0])
+                continue;
+            if (r == last_lotto[1])
+                continue;
+            if (r == last_lotto[2])
+                continue;
+            if (r == last_lotto[3])
+                continue;
+            if (r == last_lotto[4])
+                continue;
+            if (r == last_lotto[5])
+                continue;
+ 
+            for (i = 0; i < n; i++) {         // 이미 생성된 개수 만큼만 중복된 수인지 검사한다.
+                if (lotto[j][i] == r) {    // 이미 생성된 번호인지(중복수) 검사한다.
+                    break;
+                }
+            }
+
+            if (n == i)
+                lotto[j][n++] = r;   // 중복수가 아닐때에만 n위치에 생성된 수를 기억시킨다.
+            if (n >= 6)
+                break;        // 랜덤 수 6개가 생성되었으면 무한 반복을 벗어난다.
+        }
+        n = 0;
+    }
+   
+    int lotto_score[100];
+    int lotto_result[100][2];
+    int temp=0;
+    
+
+    //각 시행의 기댓값을 구함
+    for (i = 0; i < 100; i++) {
+        lotto_score[i] = lotto_odd_even(lotto[i], 6) + lotto_sum(lotto[i], 6);
+        lotto_result[i][0] = i;
+        lotto_result[i][1] = lotto_score[i];
+    }
+
+    
+    for (i = 0; i< 100; i++) {
+        for (j = 0; j < 6; j++) {
+            printf("%d ", lotto[i][j]);
+        }
+        printf("해당 후보의 기댓값: %d", lotto_score[i]);
+        printf("\n");
+    }
+    
+
+    //각 로또의 기댓값을 선택정렬을 내림차순으로 결과의0인덱스에는 원래 몇번째 시행인지
+    //결과의1인덱스에는 기댓값이 들어있다.
+    for (int i = 0; i < 99; i++) {
+        for (int j = i+1; j < 100; j++) {
+            if (lotto_result[i][1] < lotto_result[j][1]) { 
+                temp = lotto_result[j][1];
+                lotto_result[j][1] = lotto_result[i][1];
+                lotto_result[i][1] = temp;
+                temp = lotto_result[j][0];
+                lotto_result[j][0] = lotto_result[i][0];
+                lotto_result[i][0] = temp;
+            }
+        }
+    }
+    //기댓값 1~5순위의 회차에서 이번에는 오름차순으로 각 회차를 정렬
+    for (int a = 0; a < 6; a++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = i + 1; j < 6; j++) {
+                if (lotto[lotto_result[a][0]][i] > lotto[lotto_result[a][0]][j]) {
+                    temp = lotto[lotto_result[a][0]][j];
+                    lotto[lotto_result[a][0]][j] = lotto[lotto_result[a][0]][i];
+                    lotto[lotto_result[a][0]][i] = temp;
+                }
+            }
+        }
+    }
+
+    //마지막으로 1~5순위까지의 번호와 기댓값을 표현
+    for (int i = 0; i < 5; i++) {
+        printf("%d번째 추첨번호:",i+1);
+        for (int j = 0; j < 6; j++) {
+            printf("%2d ", lotto[lotto_result[i][0]][j]);
+        }
+        printf("기대점수: %2d", lotto_result[i][1]);
+        printf("\n");
+    }
+   
+  
+    return 0;
+}
+
+int lotto_odd_even(int arr[], int n) {
+
+    int i;
+    int odd = 0, even = 0;
+    int percentage = 0;
+
+    for (i = 0; i < n; i++)
+        if (arr[i] % 2 == 1)
+            odd++;
+
+    switch (odd) {
+    case 6:
+        percentage = 1;
+        break;
+    case 5:
+        percentage = 7;
+        break;
+    case 4:
+        percentage = 22;
+        break;
+    case 3:
+        percentage = 34;
+        break;
+    case 2:
+        percentage = 26;
+        break;
+    case 1:
+        percentage = 8;
+        break;
+    case 0:
+        percentage = 1;
+        break;
+    }
+
+    return percentage;
+
+}
+
+
+int lotto_sum(int arr[], int n) {
+    int i;
+    int sum = 0;
+    int percentage = 0;
+
+    for (i = 0; i < n; i++) {
+        sum += arr[i];
+    }
+
+    if (sum >= 1 && sum <= 20)
+        percentage = 0;
+    else if (sum >= 21 && sum <= 40)
+        percentage = 0;
+    else if (sum >= 41 && sum <= 60)
+        percentage = 0;
+    else if (sum >= 61 && sum <= 80)
+        percentage = 3;
+    else if (sum >= 81 && sum <= 100)
+        percentage = 9;
+    else if (sum >= 101 && sum <= 120)
+        percentage = 16;
+    else if (sum >= 121 && sum <= 140)
+        percentage = 25;
+    else if (sum >= 141 && sum <= 160)
+        percentage = 21;
+    else if (sum >= 161 && sum <= 180)
+        percentage = 17;
+    else if (sum >= 181 && sum <= 200)
+        percentage = 7;
+    else if (sum >= 201 && sum <= 220)
+        percentage = 2;
+    else if (sum >= 221 && sum <= 240)
+        percentage = 0;
+    else if (sum >= 241 && sum <= 260)
+        percentage = 0;
+
+    return percentage;
+}

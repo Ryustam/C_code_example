@@ -1,0 +1,221 @@
+
+1번
+
+#include <stdio.h>
+
+int main() {
+
+	int num;
+
+	printf("10진수 정수 입력:");
+	scanf_s("%d",&num);
+
+	printf("10진수를 16진수로 변환한 값:%#x",num);
+		
+	return 0;
+}
+
+2번
+
+#include <stdio.h>
+
+int main() {
+
+	int num1, num2;
+	int is = 1;
+	int L, S;
+
+
+	printf("2~9까지 숫자 중에서 2개를 고르시오:");
+	scanf_s("%d %d", &num1, &num2);
+
+	S=(num1 > num2) ? num2 : num1;
+	L = (num1 > num2) ? num1 : num2;
+
+	for (S; S <= L; S++) {
+		is = 1;
+		for (is; is < 10; is++) {
+			printf("%d * %d = %d\n", S, is, S * is);
+		}
+	}
+
+}
+
+3번
+
+#include <stdio.h>
+
+// 뉴클리드 호제법
+
+int main() {
+
+	int num1, num2;
+	int L, S, temp,code=1;
+	int GCD;
+	
+
+	printf("두 개의 정수 입력:");
+	scanf_s("%d %d", &num1, &num2);
+
+	S=(num1 > num2) ? num2 : num1;
+	L = (num1 > num2) ? num1 : num2;
+
+	while (code) {
+		if (L % S != 0) {
+			temp = S;
+			S = L % S;
+			L = temp;
+		}
+		if (L % S == 0) {
+			GCD = S;
+			printf("두 수의 최대공약수: %d", GCD);
+			code = 0;
+		}
+	}
+	
+	return 0;
+
+}
+
+4번
+#include <stdio.h>
+
+int main() {
+
+	int money;
+
+	printf("현재 당신이 소유하고 있는 금액:");
+	scanf_s("%d", &money);
+
+	int p_money = money - 500 - 700 - 400;
+
+	int max_cream, max_shrimp, max_cola;
+
+	max_cream = p_money / 500;
+	max_shrimp = p_money / 700;
+	max_cola = p_money / 400;
+
+	for (int i = 0; i <= max_cream; i++) {
+		for (int j = 0; j <= max_shrimp; j++) {
+			for (int k = 0; k <= max_cola; k++) {
+				if ((p_money - (i * 500) - (j * 700) - (k * 400)) == 0)
+					printf("크림빵 %d개, 새우깡 %d개, 콜 라 %d개\n", i + 1, j + 1, k + 1);
+			}
+		}
+	}
+
+	return 0;
+}
+
+5번
+
+#include <stdio.h>
+
+int main() {
+
+	int num=2;
+	int count=0,PN=0,code=1;
+
+	
+	do {
+		for (int i = 1; i <= num; i++) {
+			if (num % i == 0) {
+				count++;
+			}
+		}
+		if (count == 2) {
+			printf("%d ", num);
+			PN++;
+		}
+
+		if (PN == 10)
+			code = 0;
+
+		num++;
+		count = 0;
+		
+		
+	} while (code);
+
+	
+	return 0;
+
+}
+
+
+6번
+
+#include <stdio.h>
+
+int main() {
+
+	int sec;
+	int hour, minute;
+
+	printf("초(second)입력");
+	scanf_s("%d", &sec);
+
+	hour = sec / 3600;
+	minute = (sec % 3600) /60;
+	sec = (sec % 60) % 60;
+
+	printf("[h:%d, m:%d, s:%d]", hour, minute, sec);
+
+
+
+	return 0;
+
+}
+
+도전7
+
+#include <stdio.h>
+
+int main() {
+
+	int num,code=1,count=-1;
+	int sum=1,max;
+
+	printf("상수 n 입력");
+	scanf_s("%d", &num);
+
+	while (code) {
+		sum = sum * 2;
+		count++;
+		if (sum > num) {
+			code = 0;
+			printf("공식을 만족하는 k의 최댓값은 %d\n", count);
+		}
+	}
+
+	return 0;
+
+}
+
+도전8
+
+#include <stdio.h>
+
+
+int func1(int n) {
+
+	if (n == 1)
+		return 2;
+
+	return 2 * func1(n - 1);
+}
+
+int main() {
+
+	int num;
+
+	printf("정수 입력:");
+	scanf_s("%d", &num);
+
+	int a = func1(num);
+	printf("2의 %d승은 %d", num, a);
+
+
+	return 0;
+
+}
