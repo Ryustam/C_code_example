@@ -243,3 +243,16 @@ G o o d 0
 0 1 2 3 4
 
 5
+
+ if (r == last_lotto[0])
+                continue;
+            if (r == last_lotto[1])
+                continue;
+            if (r == last_lotto[2])
+                continue;
+            if (r == last_lotto[3])
+                continue;
+            if (r == last_lotto[4])
+                continue;
+            if (r == last_lotto[5])
+                continue;

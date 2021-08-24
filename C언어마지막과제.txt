@@ -5,39 +5,70 @@
 #include <time.h>
 #include <windows.h>
 
+enum {
+    BLACK,
+    DARK_BLUE,
+    DARK_GREEN,
+    DARK_SKYBLUE,
+    DARK_RED,
+    DARK_VOILET,
+    DAKR_YELLOW,
+    GRAY,
+    DARK_GRAY,
+    BLUE,
+    GREEN,
+    SKYBLUE,
+    RED,
+    VIOLET,
+    YELLOW,
+    WHITE,
+};
+
+
 int lotto_odd_even(int arr[], int n);
 int lotto_sum(int arr[], int n);
-
+void setColor(unsigned short text);
 
 // 홀짝분포와 합통계의 확률을 더해서 기댓값을 산정하고 기댓값 순서대로 1~5순위를 출력한다.
 // 단, 지난주 당첨번호는 결과에서 제외한다.
 
 
 int main() {
+    system("mode con:cols=80 lines=15");
+    setColor(WHITE);
+
 
     int  lotto[100][6] = { 0 };   // 나머지 5개에는 0으로 채움 --> 6개 모두 0으로 초기화 된다.
     int i = 0, j = 0, n = 0;
-    int x=0, y=0;
+    int x = 0, y = 0;
     srand((unsigned)time(NULL));  // 매번 다른 수를 생성하도록 랜덤함수 초기화
 
     int last_lotto[6];
 
-    printf("========================\n");
-    printf("       로또 자판기      \n");
-    printf("========================\n");
+    printf("                     =======================================\n");
+    printf("                                   로또 자판기              \n");
+    printf("                     =======================================\n");
     getch();
     system("cls");
 
-
+    setColor(GRAY);
+    
     printf("지난 주 로또 1등 번호 입력하세요(6개): ");
     scanf("%d %d %d %d %d %d", &last_lotto[0], &last_lotto[1], &last_lotto[2], &last_lotto[3], &last_lotto[4], &last_lotto[5]);
-  
 
+    /*
     for (i = 0; i < 6; i++) {
         printf("%d ", last_lotto[i]);
     }
-    printf("예측중입니다!");
-    getch();
+    */
+
+    printf("예측중입니다!\n");
+    Sleep(1000);
+    printf("예측중입니다!!\n");
+    Sleep(1000);
+    printf("예측중입니다!!!\n");
+    Sleep(1500);
+    
     system("cls");
 
 
@@ -48,7 +79,7 @@ int main() {
             //  rand() % 45  + 1 : 1부터 45까지의 난수를 생성한다.
 
             int r = rand() % 45 + 1;  // 1~45 사이의 랜덤 수 생성, 중복 가능
-             
+
             if (r == last_lotto[0])
                 continue;
             if (r == last_lotto[1])
@@ -61,7 +92,7 @@ int main() {
                 continue;
             if (r == last_lotto[5])
                 continue;
- 
+
             for (i = 0; i < n; i++) {         // 이미 생성된 개수 만큼만 중복된 수인지 검사한다.
                 if (lotto[j][i] == r) {    // 이미 생성된 번호인지(중복수) 검사한다.
                     break;
@@ -75,11 +106,11 @@ int main() {
         }
         n = 0;
     }
-   
+
     int lotto_score[100];
     int lotto_result[100][2];
-    int temp=0;
-    
+    int temp = 0;
+
 
     //각 시행의 기댓값을 구함
     for (i = 0; i < 100; i++) {
@@ -88,21 +119,22 @@ int main() {
         lotto_result[i][1] = lotto_score[i];
     }
 
-    
-    for (i = 0; i< 100; i++) {
+    /*
+    for (i = 0; i < 100; i++) {
         for (j = 0; j < 6; j++) {
             printf("%d ", lotto[i][j]);
         }
         printf("해당 후보의 기댓값: %d", lotto_score[i]);
         printf("\n");
     }
-    
+    */
+
 
     //각 로또의 기댓값을 선택정렬을 내림차순으로 결과의0인덱스에는 원래 몇번째 시행인지
     //결과의1인덱스에는 기댓값이 들어있다.
     for (int i = 0; i < 99; i++) {
-        for (int j = i+1; j < 100; j++) {
-            if (lotto_result[i][1] < lotto_result[j][1]) { 
+        for (int j = i + 1; j < 100; j++) {
+            if (lotto_result[i][1] < lotto_result[j][1]) {
                 temp = lotto_result[j][1];
                 lotto_result[j][1] = lotto_result[i][1];
                 lotto_result[i][1] = temp;
@@ -125,17 +157,25 @@ int main() {
         }
     }
 
+    setColor(GREEN);
     //마지막으로 1~5순위까지의 번호와 기댓값을 표현
+    printf("================================================================================\n");
+    printf("                               당신의 행운번호!\n");
+
+    setColor(YELLOW);
     for (int i = 0; i < 5; i++) {
-        printf("%d번째 추첨번호:",i+1);
+        printf("               <%d번째 추첨번호:", i + 1);
         for (int j = 0; j < 6; j++) {
             printf("%2d ", lotto[lotto_result[i][0]][j]);
         }
-        printf("기대점수: %2d", lotto_result[i][1]);
+        printf("기대점수: %2d>", lotto_result[i][1]);
         printf("\n");
     }
-   
-  
+    setColor(GREEN);
+    printf("================================================================================\n");
+
+    setColor(WHITE);
+
     return 0;
 }
 
@@ -215,4 +255,8 @@ int lotto_sum(int arr[], int n) {
         percentage = 0;
 
     return percentage;
+}
+
+void setColor(unsigned short text) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text);
 }
